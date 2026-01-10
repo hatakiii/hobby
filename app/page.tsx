@@ -1,3 +1,4 @@
+import { SearchBar } from "@/components/myComponents/SearchBar";
 import { TodoList } from "@/components/myComponents/TodoList";
 
 export default function Home() {
@@ -5,6 +6,7 @@ export default function Home() {
     <div>
       Hello World
       <TodoList />
+      <SearchBar />
     </div>
   );
 }
