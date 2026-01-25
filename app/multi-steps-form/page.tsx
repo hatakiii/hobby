@@ -29,121 +29,164 @@ export default function RegisterForm() {
     profileImage: null,
   });
 
-  // ---- TEXT INPUT HANDLER ----
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
-    setForm((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  // ---- FILE INPUT HANDLER ----
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
-
-    setForm((prev) => ({
-      ...prev,
-      profileImage: file,
-    }));
+    setForm((prev) => ({ ...prev, profileImage: file }));
   };
 
-  // ---- SUBMIT ----
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-
-    // password match validation
     if (form.password !== form.confirmPassword) {
       alert("Password таарахгүй байна");
       return;
     }
-
     console.log("FORM DATA:", form);
   };
 
   return (
-    <div
-      style={{ maxWidth: 500, margin: "40px auto", fontFamily: "sans-serif" }}
-    >
-      <h2>Register Form</h2>
+    <div style={styles.container}>
+      <div style={styles.card}>
+        <h2 style={styles.title}>Create Account</h2>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          name="firstName"
-          placeholder="First name"
-          value={form.firstName}
-          onChange={handleChange}
-        />
+        <form onSubmit={handleSubmit} style={styles.form}>
+          <div style={styles.row}>
+            <input
+              name="firstName"
+              placeholder="First name"
+              value={form.firstName}
+              onChange={handleChange}
+              style={styles.input}
+            />
+            <input
+              name="lastName"
+              placeholder="Last name"
+              value={form.lastName}
+              onChange={handleChange}
+              style={styles.input}
+            />
+          </div>
 
-        <input
-          name="lastName"
-          placeholder="Last name"
-          value={form.lastName}
-          onChange={handleChange}
-        />
+          <input
+            name="userName"
+            placeholder="Username"
+            value={form.userName}
+            onChange={handleChange}
+            style={styles.input}
+          />
+          <input
+            name="email"
+            type="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={handleChange}
+            style={styles.input}
+          />
+          <input
+            name="phoneNumber"
+            placeholder="Phone number"
+            value={form.phoneNumber}
+            onChange={handleChange}
+            style={styles.input}
+          />
+          <input
+            name="dateOfBirth"
+            type="date"
+            value={form.dateOfBirth}
+            onChange={handleChange}
+            style={styles.input}
+          />
 
-        <input
-          name="userName"
-          placeholder="Username"
-          value={form.userName}
-          onChange={handleChange}
-        />
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={form.password}
+            onChange={handleChange}
+            style={styles.input}
+          />
+          <input
+            name="confirmPassword"
+            type="password"
+            placeholder="Confirm password"
+            value={form.confirmPassword}
+            onChange={handleChange}
+            style={styles.input}
+          />
 
-        <input
-          name="email"
-          type="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={handleChange}
-        />
+          <input type="file" onChange={handleFileChange} style={styles.file} />
 
-        <input
-          name="phoneNumber"
-          placeholder="Phone number"
-          value={form.phoneNumber}
-          onChange={handleChange}
-        />
-
-        <input
-          name="dateOfBirth"
-          type="date"
-          value={form.dateOfBirth}
-          onChange={handleChange}
-        />
-
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          value={form.password}
-          onChange={handleChange}
-        />
-
-        <input
-          name="confirmPassword"
-          type="password"
-          placeholder="Confirm password"
-          value={form.confirmPassword}
-          onChange={handleChange}
-        />
-
-        <input type="file" onChange={handleFileChange} />
-
-        <button type="submit">Submit</button>
-      </form>
-
-      {/* DEBUG VIEW */}
-      <pre style={{ marginTop: 20, background: "#f5f5f5", padding: 10 }}>
-        {JSON.stringify(
-          {
-            ...form,
-            profileImage: form.profileImage?.name || null,
-          },
-          null,
-          2,
-        )}
-      </pre>
+          <button type="submit" style={styles.button}>
+            Register
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
+
+// ================= STYLES =================
+const styles: Record<string, React.CSSProperties> = {
+  container: {
+    minHeight: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    background: "#0f172a", // dark minimal background
+    fontFamily: "Inter, sans-serif",
+  },
+
+  card: {
+    background: "#ffffff",
+    padding: 32,
+    borderRadius: 12,
+    width: 420,
+    boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
+  },
+
+  title: {
+    fontSize: 22,
+    fontWeight: 600,
+    marginBottom: 20,
+    textAlign: "center",
+  },
+
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 12,
+  },
+
+  row: {
+    display: "flex",
+    gap: 12,
+  },
+
+  input: {
+    flex: 1,
+    padding: "10px 12px",
+    borderRadius: 8,
+    border: "1px solid #e5e7eb",
+    fontSize: 14,
+    outline: "none",
+  },
+
+  file: {
+    fontSize: 13,
+  },
+
+  button: {
+    marginTop: 10,
+    padding: "10px",
+    borderRadius: 8,
+    border: "none",
+    background: "#2563eb",
+    color: "white",
+    fontWeight: 500,
+    cursor: "pointer",
+  },
+};
